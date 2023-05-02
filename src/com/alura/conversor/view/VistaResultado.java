@@ -10,6 +10,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import com.alura.conversor.controller.MonedaController;
+import com.alura.conversor.model.TasaDeCambio;
+
 public class VistaResultado extends JFrame{
 
 	private static final long serialVersionUID = 5578208276041371999L;
@@ -59,7 +62,17 @@ public class VistaResultado extends JFrame{
 	}
 
 	protected void accionAceptar() {
-		JOptionPane.showMessageDialog(null, "El valor de la conversion es :");
+		Double valor = Double.valueOf(inputValor.getText());
+		TasaDeCambio tasa = this.vistaOpciones.getTasaDeCambio();
+		
+		MonedaController monController = this.vistaOpciones.getVistaPrincipal().getMonedaController();
+		
+		monController.getCm().setTasa(tasa);
+		monController.getCm().setValor(valor);
+		
+		Double resultado = monController.convertirMoneda();
+		
+		JOptionPane.showMessageDialog(null, "El valor de la conversion es : " + resultado);
 		int opcion = JOptionPane.showConfirmDialog(null, "El valor de la conversion es :","confirmacion",JOptionPane.YES_NO_CANCEL_OPTION);
 		if(opcion == 0) {
 			accionCancelar();

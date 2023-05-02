@@ -8,6 +8,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.alura.conversor.controller.MonedaController;
+
 public class VistaMenuPrincipal extends JFrame{
 
 	private static final long serialVersionUID = -2158927997637397829L;
@@ -16,6 +18,7 @@ public class VistaMenuPrincipal extends JFrame{
 	private JPanel jpanel = new JPanel();
 	private JComboBox<String> comboBoxOpcionConversion = new JComboBox<>();
 	private boolean itemSelected = false;
+	private MonedaController monController;
 	
 	public VistaMenuPrincipal() {
 		inicializarJpanel();
@@ -28,10 +31,15 @@ public class VistaMenuPrincipal extends JFrame{
 	public VistaMenuPrincipal getInstancia() {
 		return this;
 	}
+	
+	public MonedaController getMonedaController() {
+		return this.monController;
+	}
 
 	private void inicializarComboBox() {
+		this.monController = new MonedaController();		
 		this.comboBoxOpcionConversion.addItem("Seleccione una opcion");
-		this.comboBoxOpcionConversion.addItem("Seleccione una opcion2");
+		this.comboBoxOpcionConversion.addItem(monController.toString());
 		
 		this.comboBoxOpcionConversion.addItemListener( new ItemListener() {
 			@Override
@@ -52,9 +60,5 @@ public class VistaMenuPrincipal extends JFrame{
 		this.jpanel.add(labelSeleccioneOpcion);
 		this.jpanel.add(comboBoxOpcionConversion);
 	}
-	
-	
-	
-	
-	
+
 }
