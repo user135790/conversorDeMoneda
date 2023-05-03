@@ -62,15 +62,7 @@ public class VistaResultado extends JFrame{
 	}
 
 	protected void accionAceptar() {
-		Double valor = Double.valueOf(inputValor.getText());
-		TasaDeCambio tasa = this.vistaOpciones.getTasaDeCambio();
-		
-		MonedaController monController = this.vistaOpciones.getVistaPrincipal().getMonedaController();
-		
-		monController.getCm().setTasa(tasa);
-		monController.getCm().setValor(valor);
-		
-		Double resultado = monController.convertirMoneda();
+		Double resultado = calcularResultadoConversion();
 		
 		JOptionPane.showMessageDialog(null, "El valor de la conversion es : " + resultado);
 		int opcion = JOptionPane.showConfirmDialog(null, "El valor de la conversion es :","confirmacion",JOptionPane.YES_NO_CANCEL_OPTION);
@@ -80,6 +72,19 @@ public class VistaResultado extends JFrame{
 			JOptionPane.showMessageDialog(null, "Programa terminado");
 			System.exit(EXIT_ON_CLOSE);
 		}
+	}
+
+	private Double calcularResultadoConversion() {
+		Double valor = Double.valueOf(inputValor.getText());
+		TasaDeCambio tasa = this.vistaOpciones.getTasaDeCambio();
+		
+		MonedaController monController = this.vistaOpciones.getVistaPrincipal().getMonedaController();
+		
+		monController.getCm().setTasa(tasa);
+		monController.getCm().setValor(valor);
+		
+		Double resultado = monController.convertirMoneda();
+		return resultado;
 	}
 
 	protected void accionCancelar() {
